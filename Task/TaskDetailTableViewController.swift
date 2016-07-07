@@ -36,7 +36,7 @@ class TaskDetailTableViewController: UITableViewController {
     func updateWith(task: Task) {
         
         taskNameTextField.text = task.name
-        dueDateTextField.text = task.dueDate?.description
+        dueDateTextField.text = task.dueDate?.stringValue()
         notesTextView.text = task.notes
         
     }
