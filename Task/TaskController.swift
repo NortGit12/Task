@@ -32,9 +32,26 @@ class TaskController {
         
     }
     
+    var mockTasks: [Task] {
+        
+        let putGarbageOutTask = Task(name: "Put Out Garbage", notes: "Empty all garbages and take the main garbage can out to the curb", dueDate: NSDate())
+        let doHomeworkTask = Task(name: "Do Homework", notes: "Finish today's project and watch videos for tomorrow", dueDate: NSDate())
+        let mowLawnTask = Task(name: "Mow the Lawn", notes: "Get it done")
+        let moveFurnitureTask = Task(name: "Move Furniture Back", notes: "Move all of the furniture back in and put it where it goes")
+        
+        moveFurnitureTask.isComplete = true
+        
+        return [putGarbageOutTask, doHomeworkTask, mowLawnTask, moveFurnitureTask]
+        
+    }
+    
     // MARK: - Initializer(s)
     
-    
+    init() {
+        
+        self.tasks = fetchTasks()
+        
+    }
     
     // MARK: - Method(s)
     
@@ -69,7 +86,7 @@ class TaskController {
     
     func fetchTasks() -> [Task] {
         
-        
+        return self.mockTasks
         
     }
     
