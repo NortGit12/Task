@@ -90,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */,
+				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -140,7 +141,6 @@
 				1F16D5FA1D2EE7AA008AA05A /* Task.xcdatamodeld */,
 				1F16D6011D2EE899008AA05A /* Model + CoreData */,
 				1F16D5F91D2EE74C008AA05A /* ModelController */,
-				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
 				1F16D5F61D2EE6C6008AA05A /* ViewController */,
 				68D78A291BD6C26500509A87 /* Main.storyboard */,
 				68D78A2C1BD6C26500509A87 /* Assets.xcassets */,

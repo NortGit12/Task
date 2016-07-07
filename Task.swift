@@ -18,6 +18,11 @@ class Task: NSManagedObject {
         
         self.init(entity: entity, insertIntoManagedObjectContext: context)
         
+        self.name = name
+        self.notes = notes
+        self.dueDate = dueDate
+        self.isComplete = false
+        
     }
 
 }

@@ -13,16 +13,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Yxu-05-5g9">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskListTableViewCell" textLabel="Z0I-FA-w2J" style="IBUITableViewCellStyleDefault" id="qOc-y8-H0s">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yxu-05-5g9" id="F9J-2c-kMH">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qOc-y8-H0s" id="RRi-xX-u36">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z0I-FA-w2J">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="pdr-6h-ukK" kind="show" identifier="viewExistingTaskSegue" id="2xE-rj-Hx8"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -42,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="1019" y="249"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Detail-->
         <scene sceneID="eYN-Fe-9GK">
             <objects>
                 <tableViewController id="pdr-6h-ukK" sceneMemberID="viewController">
@@ -65,6 +71,9 @@
                             <outlet property="delegate" destination="pdr-6h-ukK" id="BQi-Yk-N3C"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Detail" id="QVG-d4-j4W">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="WUt-mT-XQC"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3Q-No-4B7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,7 +98,4 @@
             <point key="canvasLocation" x="319" y="249"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="2xE-rj-Hx8"/>
-    </inferredMetricsTieBreakers>
 </document>
