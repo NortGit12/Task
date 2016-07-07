@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class TaskController {
     
@@ -14,7 +15,14 @@ class TaskController {
     
     static let sharedController = TaskController()
     
-    var tasks: [Task] = []
+    var tasks: [Task] {
+        let request = NSFetchRequest(entityName: "Task")
+        
+        let tasks = (try? Stack.sharedStack.managedObjectContext.executeFetchRequest(request)) as? [Task]
+        
+        return tasks ?? []
+
+    }
     
     var completedTasks: [Task] {
         
@@ -34,24 +42,17 @@ class TaskController {
     
     var mockTasks: [Task] {
         
-        let putGarbageOutTask = Task(name: "Put Out Garbage", notes: "Empty all garbages and take the main garbage can out to the curb", dueDate: NSDate())
-        let doHomeworkTask = Task(name: "Do Homework", notes: "Finish today's project and watch videos for tomorrow", dueDate: NSDate())
-        let mowLawnTask = Task(name: "Mow the Lawn", notes: "Get it done")
-        let moveFurnitureTask = Task(name: "Move Furniture Back", notes: "Move all of the furniture back in and put it where it goes")
+        guard let putGarbageOutTask = Task(name: "Put Out Garbage", notes: "Empty all garbages and take the main garbage can out to the curb", dueDate: NSDate()),
+            let doHomeworkTask = Task(name: "Do Homework", notes: "Finish today's project and watch videos for tomorrow", dueDate: NSDate()),
+            let mowLawnTask = Task(name: "Mow the Lawn", notes: "Get it done"),
+            let moveFurnitureTask = Task(name: "Move Furniture Back", notes: "Move all of the furniture back in and put it where it goes") else { return [] }
         
         moveFurnitureTask.isComplete = true
         
         return [putGarbageOutTask, doHomeworkTask, mowLawnTask, moveFurnitureTask]
-        
     }
     
     // MARK: - Initializer(s)
-    
-    init() {
-        
-        self.tasks = fetchTasks()
-        
-    }
     
     // MARK: - Method(s)
     
@@ -71,16 +72,24 @@ class TaskController {
     
     func removeTask(task: Task) {
         
-        
-        
-        saveToPersistentStore()
+        if let moc = task.managedObjectContext {
+            moc.deleteObject(task)
+            print("Tasks.count = \(tasks.count)")
+            saveToPersistentStore()
+        }
     }
     
     // MARK: - Persistence
     
     func saveToPersistentStore() {
         
+        let moc = Stack.sharedStack.managedObjectContext
         
+        do {
+            try moc.save()
+        } catch {
+            print("Yuckiness happened while trying to save the Managed Object Context :(")
+        }
         
     }
     
