@@ -13,16 +13,20 @@ class TaskDetailTableViewController: UITableViewController {
     // MARK: - Stored Properties
     
     var task: Task?
+    var dueDateValue: NSDate?
     
     @IBOutlet weak var taskNameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet var dueDateDatePicker: UIDatePicker!
     
     
     // MARK: - General
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dueDateTextField.inputView = dueDateDatePicker
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -85,14 +89,25 @@ class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Action(s)
     
+    @IBAction func datePickerValueChanged(sender: UIDatePicker) {
+        
+        self.dueDateValue = sender.date
+        
+    }
+    
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         
-        guard let name = taskNameTextField.text, dueDate = dueDateTextField.text, notes = notesTextView.text where name.characters.count > 0 else { return }
+        guard let name = taskNameTextField.text, dueDateString = dueDateTextField.text, notes = notesTextView.text where name.characters.count > 0 else { return }
+        
+        // Convert the String date to an NSDate
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dueDate = dateFormatter.dateFromString(dueDateString)
         
         if let task = task {
             
             // Update existing Task
-            TaskController.sharedController.updateTask(task, name: name, notes: notes, due: NSDate(timeInterval: dueDate), isComplete: false)
+            TaskController.sharedController.updateTask(task, name: name, notes: notes, due: dueDate, isComplete: false)
             
         } else {
             
@@ -109,6 +124,22 @@ class TaskDetailTableViewController: UITableViewController {
         navigationController?.popViewControllerAnimated(true)
     }
 
+    
+    @IBAction func userTappedView(sender: AnyObject) {
+        
+        dismissKeyboard()
+        
+    }
+    
+    // MARK: - Methods
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    
     /*
     // MARK: - Navigation
 

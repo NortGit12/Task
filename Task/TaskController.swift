@@ -58,25 +58,28 @@ class TaskController {
     
     func addTask(name: String, notes: String?, due: NSDate?) {
         
-        
+        _ = Task(name: name, notes: notes, dueDate: due)
         
         saveToPersistentStore()
     }
     
     func updateTask(task: Task, name: String, notes: String?, due: NSDate?, isComplete: Bool) {
         
-        
-        
-        saveToPersistentStore()
+        if name.characters.count > 0 {
+            
+            task.name = name
+            task.notes = notes
+            task.dueDate = due
+            task.isComplete = isComplete
+            
+            saveToPersistentStore()
+        }
     }
     
     func removeTask(task: Task) {
         
-        if let moc = task.managedObjectContext {
-            moc.deleteObject(task)
-            print("Tasks.count = \(tasks.count)")
-            saveToPersistentStore()
-        }
+        task.managedObjectContext?.deleteObject(task)
+        saveToPersistentStore()
     }
     
     // MARK: - Persistence
