@@ -29,6 +29,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pdr-6h-ukK" kind="show" identifier="viewExistingTaskSegue" id="WwM-X2-eYi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -198,4 +201,7 @@
             <point key="canvasLocation" x="319" y="249"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WwM-X2-eYi"/>
+    </inferredMetricsTieBreakers>
 </document>
