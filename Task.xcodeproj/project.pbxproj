@@ -15,6 +15,7 @@
 		1F16D6001D2EE88F008AA05A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D5FE1D2EE88F008AA05A /* Task.swift */; };
 		1F16D6031D2EEA9A008AA05A /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D6021D2EEA9A008AA05A /* TaskController.swift */; };
 		1F16D6081D2F19EC008AA05A /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D6071D2F19EC008AA05A /* DateHelpers.swift */; };
+		1F3DCCF41D2FEDA400C2BC95 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DCCF31D2FEDA400C2BC95 /* ButtonTableViewCell.swift */; };
 		68D78A261BD6C26500509A87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D78A251BD6C26500509A87 /* AppDelegate.swift */; };
 		68D78A2B1BD6C26500509A87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D78A291BD6C26500509A87 /* Main.storyboard */; };
 		68D78A2D1BD6C26500509A87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D78A2C1BD6C26500509A87 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		1F16D5FE1D2EE88F008AA05A /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		1F16D6021D2EEA9A008AA05A /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		1F16D6071D2F19EC008AA05A /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		1F3DCCF31D2FEDA400C2BC95 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		68D78A221BD6C26500509A87 /* Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D78A251BD6C26500509A87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68D78A2A1BD6C26500509A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */,
 				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
+				1F3DCCF31D2FEDA400C2BC95 /* ButtonTableViewCell.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				1F16D5FF1D2EE88F008AA05A /* Task+CoreDataProperties.swift in Sources */,
 				1F16D6001D2EE88F008AA05A /* Task.swift in Sources */,
 				1F16D6031D2EEA9A008AA05A /* TaskController.swift in Sources */,
+				1F3DCCF41D2FEDA400C2BC95 /* ButtonTableViewCell.swift in Sources */,
 				1F16D5F51D2EE6C1008AA05A /* TaskDetailTableViewController.swift in Sources */,
 				1F16D6081D2F19EC008AA05A /* DateHelpers.swift in Sources */,
 			);
