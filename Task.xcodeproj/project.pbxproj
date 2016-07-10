@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0D6C291D32EA1E00081836 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		1F16D5F71D2EE737008AA05A /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = Task/Stack.swift; sourceTree = "<group>"; };
 		1F16D5FB1D2EE7AA008AA05A /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
@@ -562,9 +563,10 @@
 		1F16D5FA1D2EE7AA008AA05A /* Task.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1F0D6C291D32EA1E00081836 /* Model 2.xcdatamodel */,
 				1F16D5FB1D2EE7AA008AA05A /* Task.xcdatamodel */,
 			);
-			currentVersion = 1F16D5FB1D2EE7AA008AA05A /* Task.xcdatamodel */;
+			currentVersion = 1F0D6C291D32EA1E00081836 /* Model 2.xcdatamodel */;
 			path = Task.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

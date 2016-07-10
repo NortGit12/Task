@@ -16,6 +16,7 @@ class TaskDetailTableViewController: UITableViewController {
     var dueDateValue: NSDate?
     
     @IBOutlet weak var taskNameTextField: UITextField!
+    @IBOutlet weak var priorityTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet var dueDateDatePicker: UIDatePicker!
@@ -42,6 +43,7 @@ class TaskDetailTableViewController: UITableViewController {
     func updateWith(task: Task) {
         
         taskNameTextField.text = task.name
+        priorityTextField.text = task.priority
         dueDateTextField.text = task.dueDate?.stringValue()
         notesTextView.text = task.notes
         
@@ -103,17 +105,26 @@ class TaskDetailTableViewController: UITableViewController {
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         
-        guard let name = taskNameTextField.text, notes = notesTextView.text where name.characters.count > 0 else { return }
+        guard let priority = priorityTextField.text else {
+            print("No value in priorityTextField")
+            return
+        }
+        
+        guard let name = taskNameTextField.text
+//            , priority = priorityTextField.text
+            , notes = notesTextView.text
+            where name.characters.count > 0
+        else { return }
         
         if let task = task {
             
             // Update existing Task
-            TaskController.sharedController.updateTask(task, name: name, notes: notes, dueDate: dueDateValue, isComplete: false)
+            TaskController.sharedController.updateTask(task, name: name, priority: priority, notes: notes, dueDate: dueDateValue, isComplete: false)
             
         } else {
             
             // Save a new Task
-            TaskController.sharedController.addTask(name, notes: notes, dueDate: dueDateValue)
+            TaskController.sharedController.addTask(name, priority: priority, notes: notes, dueDate: dueDateValue)
             
         }
         
@@ -133,7 +144,7 @@ class TaskDetailTableViewController: UITableViewController {
         taskNameTextField.resignFirstResponder()
         dueDateTextField.resignFirstResponder()
         notesTextView.resignFirstResponder()
-        dueDateTextField.text = dueDateValue?.stringValue()
+//        dueDateTextField.text = dueDateValue?.stringValue()
         
     }
     
