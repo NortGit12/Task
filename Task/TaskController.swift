@@ -17,32 +17,6 @@ class TaskController {
     
     let moc = Stack.sharedStack.managedObjectContext
     
-    var tasks: [Task] {
-        
-        let request = NSFetchRequest(entityName: "Task")
-        
-        let tasks = (try? Stack.sharedStack.managedObjectContext.executeFetchRequest(request)) as? [Task]
-        
-        return tasks ?? []
-        
-    }
-    
-    var completedTasks: [Task] {
-        
-        return tasks.filter({ task -> Bool in
-            task.isComplete == true
-        })
-        
-    }
-    
-    var incompleteTasks: [Task] {
-        
-        return tasks.filter({ task -> Bool in
-            task.isComplete == false
-        })
-        
-    }
-    
     var mockTasks: [Task] {
         
         guard let putGarbageOutTask = Task(name: "Put Out Garbage", notes: "Empty all garbages and take the main garbage can out to the curb", dueDate: NSDate()),
@@ -107,17 +81,5 @@ class TaskController {
         }
         
     }
-    
-//    func fetchTasks() -> [Task] {
-//        
-////        return self.mockTasks
-//        
-//        let request = NSFetchRequest(entityName: "Task")
-//        
-//        let tasks = (try? Stack.sharedStack.managedObjectContext.executeFetchRequest(request)) as? [Task]
-//        
-//        return tasks ?? []
-//        
-//    }
     
 }

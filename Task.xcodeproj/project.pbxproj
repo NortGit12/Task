@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F16D5F31D2EE62C008AA05A /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */; };
 		1F16D5F51D2EE6C1008AA05A /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */; };
 		1F16D5F81D2EE737008AA05A /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D5F71D2EE737008AA05A /* Stack.swift */; };
 		1F16D5FC1D2EE7AA008AA05A /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F16D5FA1D2EE7AA008AA05A /* Task.xcdatamodeld */; };
@@ -42,7 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListTableViewController.swift; sourceTree = "<group>"; };
 		1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		1F16D5F71D2EE737008AA05A /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = Task/Stack.swift; sourceTree = "<group>"; };
 		1F16D5FB1D2EE7AA008AA05A /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 		1F16D5F61D2EE6C6008AA05A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */,
 				1F3DCCF31D2FEDA400C2BC95 /* ButtonTableViewCell.swift */,
 				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
 			);
@@ -305,7 +302,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F16D5F81D2EE737008AA05A /* Stack.swift in Sources */,
-				1F16D5F31D2EE62C008AA05A /* TaskListTableViewController.swift in Sources */,
 				68D78A261BD6C26500509A87 /* AppDelegate.swift in Sources */,
 				1F16D5FC1D2EE7AA008AA05A /* Task.xcdatamodeld in Sources */,
 				1F16D5FF1D2EE88F008AA05A /* Task+CoreDataProperties.swift in Sources */,
