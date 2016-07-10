@@ -56,6 +56,12 @@ class TaskController {
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "priority", cacheName: nil)
         
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Error fetching tasks: \(error)")
+        }
+        
 //        do {
 //            return try moc.executeFetchRequest(request) as! [Task]
 //        } catch {
