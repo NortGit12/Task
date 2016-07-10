@@ -26,6 +26,8 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround() 
+        
         dueDateTextField.inputView = dueDateDatePicker
     }
     
@@ -93,26 +95,25 @@ class TaskDetailTableViewController: UITableViewController {
         
         self.dueDateValue = sender.date
         
+        let dateString = self.dueDateValue?.stringValue()
+        
+        dueDateTextField.text = dateString
+        
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         
-        guard let name = taskNameTextField.text, dueDateString = dueDateTextField.text, notes = notesTextView.text where name.characters.count > 0 else { return }
-        
-        // Convert the String date to an NSDate
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dueDate = dateFormatter.dateFromString(dueDateString)
+        guard let name = taskNameTextField.text, notes = notesTextView.text where name.characters.count > 0 else { return }
         
         if let task = task {
             
             // Update existing Task
-            TaskController.sharedController.updateTask(task, name: name, notes: notes, due: dueDate, isComplete: false)
+            TaskController.sharedController.updateTask(task, name: name, notes: notes, dueDate: dueDateValue, isComplete: false)
             
         } else {
             
             // Save a new Task
-            TaskController.sharedController.addTask(name, notes: notes, due: dueDate)
+            TaskController.sharedController.addTask(name, notes: notes, dueDate: dueDateValue)
             
         }
         
@@ -129,15 +130,16 @@ class TaskDetailTableViewController: UITableViewController {
         
         dismissKeyboard()
         
+        taskNameTextField.resignFirstResponder()
+        dueDateTextField.resignFirstResponder()
+        notesTextView.resignFirstResponder()
+        dueDateTextField.text = dueDateValue?.stringValue()
+        
     }
+    
+    
     
     // MARK: - Methods
-    
-    //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
     
     
     /*
@@ -150,4 +152,15 @@ class TaskDetailTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

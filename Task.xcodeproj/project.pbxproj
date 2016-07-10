@@ -94,8 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				1F16D5F21D2EE62C008AA05A /* TaskListTableViewController.swift */,
-				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
 				1F3DCCF31D2FEDA400C2BC95 /* ButtonTableViewCell.swift */,
+				1F16D5F41D2EE6C1008AA05A /* TaskDetailTableViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";

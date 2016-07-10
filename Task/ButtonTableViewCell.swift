@@ -12,6 +12,8 @@ class ButtonTableViewCell: UITableViewCell {
     
     // MARK: - Stored Properties
     
+    var delegate: ButtonTableViewCellDelegate?
+    
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var isCompleteButton: UIButton!
     
@@ -19,17 +21,29 @@ class ButtonTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     // MARK: - Actions
 
     @IBAction func isCompleteButtonTapped(sender: UIButton) {
+        
+        imageView?.image = UIImage(named: "complete")
+        
+        if let delegate = delegate {
+            
+            delegate.buttonCellButtonTapped(self)
+            
+        }
+        
     }
+}
+
+protocol ButtonTableViewCellDelegate {
+    
+    func buttonCellButtonTapped(sender: ButtonTableViewCell)
+    
 }

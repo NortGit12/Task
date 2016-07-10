@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
 
     // MARK: - Stored Properties
     
@@ -27,30 +27,46 @@ class TaskListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskController.sharedController.tasks.count
+        return TaskController.sharedController.incompleteTasks.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskListTableViewCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskListTableViewCell", forIndexPath: indexPath) as? ButtonTableViewCell
+        
+        print("Complete tasks: \(TaskController.sharedController.completedTasks)")
+        print("Incomplete tasks: \(TaskController.sharedController.incompleteTasks)")
 
-        let task = TaskController.sharedController.tasks[indexPath.row]
+        let task = TaskController.sharedController.incompleteTasks[indexPath.row]
         
-        cell.textLabel?.text = task.name
+        cell?.primaryLabel.text = task.name
         
-        return cell
+        cell?.delegate = self
+        
+        return cell ?? UITableViewCell()
     }
     
+    // MARK: - ButtonTableViewCellDelegate
+    
+    func buttonCellButtonTapped(cell: ButtonTableViewCell) {
+        
+        // Capture the Task
+        guard let cellIndexPath = tableView.indexPathForCell(cell) else { return }
+        
+        let task = TaskController.sharedController.incompleteTasks[cellIndexPath.row]
+        
+        print("Task = \(task.name)")
+        
+        // Toggle isCompleted (which also saves the modified Task
+        TaskController.sharedController.toggleIsCompleted(task)
+        
+        tableView.beginUpdates()
+        tableView.reloadRowsAtIndexPaths([cellIndexPath], withRowAnimation: .Automatic)
+        tableView.endUpdates()
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
     }
-    */
-
+    
     
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -67,22 +83,6 @@ class TaskListTableViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation

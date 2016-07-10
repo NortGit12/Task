@@ -33,10 +33,18 @@
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hba-F7-qeD">
                                                     <rect key="frame" x="554" y="0.0" width="46" height="46"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="46" id="4VA-Wh-K7w"/>
+                                                        <constraint firstAttribute="width" constant="46" id="5X4-F8-cOC"/>
                                                         <constraint firstAttribute="width" secondItem="Hba-F7-qeD" secondAttribute="height" multiplier="23:23" id="wxf-eV-Qnb"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                                     <state key="normal" title="Button" image="incomplete"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="4VA-Wh-K7w"/>
+                                                            <exclude reference="5X4-F8-cOC"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="isCompleteButtonTapped:" destination="qOc-y8-H0s" eventType="touchUpInside" id="ARy-vO-xdY"/>
                                                     </connections>

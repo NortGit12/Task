@@ -15,13 +15,16 @@ class TaskController {
     
     static let sharedController = TaskController()
     
+    let moc = Stack.sharedStack.managedObjectContext
+    
     var tasks: [Task] {
+        
         let request = NSFetchRequest(entityName: "Task")
         
         let tasks = (try? Stack.sharedStack.managedObjectContext.executeFetchRequest(request)) as? [Task]
         
         return tasks ?? []
-
+        
     }
     
     var completedTasks: [Task] {
@@ -56,20 +59,20 @@ class TaskController {
     
     // MARK: - Method(s)
     
-    func addTask(name: String, notes: String?, due: NSDate?) {
+    func addTask(name: String, notes: String?, dueDate: NSDate?) {
         
-        _ = Task(name: name, notes: notes, dueDate: due)
+        _ = Task(name: name, notes: notes, dueDate: dueDate)
         
         saveToPersistentStore()
     }
     
-    func updateTask(task: Task, name: String, notes: String?, due: NSDate?, isComplete: Bool) {
+    func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
         
         if name.characters.count > 0 {
             
             task.name = name
             task.notes = notes
-            task.dueDate = due
+            task.dueDate = dueDate
             task.isComplete = isComplete
             
             saveToPersistentStore()
@@ -78,15 +81,24 @@ class TaskController {
     
     func removeTask(task: Task) {
         
-        task.managedObjectContext?.deleteObject(task)
+        moc.deleteObject(task)
+        
+        saveToPersistentStore()
+    }
+    
+    func toggleIsCompleted(task: Task) {
+        
+        switch task.isComplete.boolValue {
+        case true: task.isComplete = false
+        case false: task.isComplete = true
+        }
+        
         saveToPersistentStore()
     }
     
     // MARK: - Persistence
     
     func saveToPersistentStore() {
-        
-        let moc = Stack.sharedStack.managedObjectContext
         
         do {
             try moc.save()
@@ -96,10 +108,16 @@ class TaskController {
         
     }
     
-    func fetchTasks() -> [Task] {
-        
-        return self.mockTasks
-        
-    }
+//    func fetchTasks() -> [Task] {
+//        
+////        return self.mockTasks
+//        
+//        let request = NSFetchRequest(entityName: "Task")
+//        
+//        let tasks = (try? Stack.sharedStack.managedObjectContext.executeFetchRequest(request)) as? [Task]
+//        
+//        return tasks ?? []
+//        
+//    }
     
 }
