@@ -20,43 +20,15 @@ class TaskController {
     let fetchedResultsController: NSFetchedResultsController
     
     weak var delegate: NSFetchedResultsControllerDelegate?
-
-    var tasks: [Task] = []
-    
-//    var tasks: [Task] {
-//        return tasksWithPredicate(nil)
-//    }
-    
-//    var completedTasks: [Task] {
-//        let predicate = NSPredicate(format: "isComplete == TRUE")
-//        return tasksWithPredicate(predicate)
-//    }
-    
-//    var incompleteTasks: [Task] {
-//        let predicate = NSPredicate(format: "isComplete == FALSE")
-//        return tasksWithPredicate(predicate)
-//    }
-    
-//    var mockTasks: [Task] {
-//        
-//        guard let putGarbageOutTask = Task(name: "Put Out Garbage", notes: "Empty all garbages and take the main garbage can out to the curb", dueDate: NSDate()),
-//            let doHomeworkTask = Task(name: "Do Homework", notes: "Finish today's project and watch videos for tomorrow", dueDate: NSDate()),
-//            let mowLawnTask = Task(name: "Mow the Lawn", notes: "Get it done"),
-//            let moveFurnitureTask = Task(name: "Move Furniture Back", notes: "Move all of the furniture back in and put it where it goes") else { return [] }
-//        
-//        moveFurnitureTask.isComplete = true
-//        
-//        return [putGarbageOutTask, doHomeworkTask, mowLawnTask, moveFurnitureTask]
-//    }
     
     // MARK: - Initializer(s)
     
     init() {
     
         let request = NSFetchRequest(entityName: "Task")
-        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true), NSSortDescriptor(key: "priority", ascending: false), NSSortDescriptor(key: "name", ascending: true)]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "priority", cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: "isComplete", cacheName: nil)
         
         do {
             try fetchedResultsController.performFetch()
@@ -68,22 +40,22 @@ class TaskController {
     
     // MARK: - Method(s) (CRUD)
     
-    func addTask(name: String, priority: String, notes: String?, dueDate: NSDate?) {
+    func addTask(name: String, priority: String, dueDate: NSDate, notes: String?) {
         
-        _ = Task(name: name, priority: priority, notes: notes, dueDate: dueDate)
+        _ = Task(name: name, priority: priority, dueDate: dueDate, notes: notes)
         
         saveToPersistentStore()
     }
     
-    func updateTask(task: Task, name: String, priority: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
+    func updateTask(task: Task, name: String, priority: String, dueDate: NSDate, isComplete: Bool, notes: String?) {
         
         if name.characters.count > 0 {
             
             task.name = name
             task.priority = priority
-            task.notes = notes
             task.dueDate = dueDate
             task.isComplete = isComplete
+            task.notes = notes
             
             saveToPersistentStore()
         }
@@ -120,18 +92,18 @@ class TaskController {
     
     // MARK: - Method(s) (Misc)
     
-    func tasksWithPredicate(predicate: NSPredicate?) -> [Task] {
-        
-        let request = NSFetchRequest(entityName: "Task")
-        request.predicate = predicate
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true)]
-        
-        do {
-            return try moc.executeFetchRequest(request) as! [Task]
-        } catch {
-            return []
-        }
-    }
+//    func tasksWithPredicate(predicate: NSPredicate?) -> [Task] {
+//        
+//        let request = NSFetchRequest(entityName: "Task")
+//        request.predicate = predicate
+//        
+//        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true), NSSortDescriptor(key: "dueDate", ascending: true)]
+//        
+//        do {
+//            return try moc.executeFetchRequest(request) as! [Task]
+//        } catch {
+//            return []
+//        }
+//    }
     
 }

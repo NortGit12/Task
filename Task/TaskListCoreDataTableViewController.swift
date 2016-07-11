@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TaskListCoreDataTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class TaskListCoreDataTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, ButtonTableViewCellDelegate {
     
     // MARK: - Stored Properties
     
@@ -19,44 +19,39 @@ class TaskListCoreDataTableViewController: UITableViewController, NSFetchedResul
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        initializeFetchedResultsController()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        initializeFetchedResultsController()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        guard let numberOfSections = fetchedResultsController.sections?.count else { return 0 }
+        guard let sectionCount = fetchedResultsController.sections?.count else { return 0 }
         
-        return numberOfSections
+        return sectionCount
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        guard let sections = fetchedResultsController.sections else { return 0 }
+        guard let currentSectionInfo = fetchedResultsController.sections?[section] else { return 0 }
         
-        let sectionInfo = sections[section]
-        
-        return sectionInfo.numberOfObjects
+        return currentSectionInfo.numberOfObjects
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
         guard let cell = tableView.dequeueReusableCellWithIdentifier("taskListTableViewCell", forIndexPath: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
+        
 
         configureCell(cell, indexPath: indexPath)
+        
+        cell.delegate = self
 
         return cell
     }
@@ -64,45 +59,81 @@ class TaskListCoreDataTableViewController: UITableViewController, NSFetchedResul
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard let sections = fetchedResultsController.sections else { return nil }
-        
+            
         let sectionInfo = sections[section]
         
-        guard let isCompletedInt = Int(sectionInfo.name) else { return nil }
+        guard let sectionInfoNameAsInt = Int(sectionInfo.name) else { return nil }
         
-        switch isCompletedInt {
+        switch sectionInfoNameAsInt {
         case 0: return "Incomplete"
         case 1: return "Completed"
-        default: return "Incomplete"
+        default: return "Unknown"
         }
         
     }
     
-
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
          
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let task = fetchedResultsController.objectAtIndexPath(indexPath) as? Task else { return }
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            TaskController.sharedController.removeTask(task)
         }
     }
     
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    // MARK: - NSFetchedResultsControllerDelegate
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Move: break
+        case .Update: break
+        }
+        
     }
-    */
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Move:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Update:
+            configureCell(self.tableView.cellForRowAtIndexPath(indexPath!)!, indexPath: indexPath!)
+        }
+        
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+    
+    // MARK: - ButtonTableViewCellDelegate
+    
+    func buttonCellButtonTapped(cell: ButtonTableViewCell) {
+        
+        guard let indexPath = tableView.indexPathForCell(cell), task = fetchedResultsController.objectAtIndexPath(indexPath) as? Task else { return }
+        
+        TaskController.sharedController.toggleIsCompleted(task)
+        
+        cell.updateWith(task)
+        
+    }
+    
     
     
     // MARK: - Misc
@@ -136,9 +167,10 @@ class TaskListCoreDataTableViewController: UITableViewController, NSFetchedResul
             if let taskDetailTableViewController = segue.destinationViewController as? TaskDetailTableViewController {
                 
                 // What do I need to pack?
-                if let index = tableView.indexPathForSelectedRow?.row {
+                
+                if let indexPath = tableView.indexPathForSelectedRow {
                     
-                    let task = TaskController.sharedController.tasks[index]
+                    let task = fetchedResultsController.objectAtIndexPath(indexPath) as? Task
                     
                     // Did I finish packing?
                     taskDetailTableViewController.task = task

@@ -13,7 +13,10 @@ class TaskDetailTableViewController: UITableViewController {
     // MARK: - Stored Properties
     
     var task: Task?
-    var dueDateValue: NSDate?
+//    var dueDateAtMidnightValue: NSDate = NSDate()
+    var dueDate: NSDate = NSDate()
+    var dueDateString: String = ""
+    let priorityTextDefault = "2 - Medium"
     
     @IBOutlet weak var taskNameTextField: UITextField!
     @IBOutlet weak var priorityTextField: UITextField!
@@ -27,7 +30,7 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
         
         dueDateTextField.inputView = dueDateDatePicker
     }
@@ -35,83 +38,50 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let task = task {
+        if let task = self.task {
             updateWith(task)
         }
     }
     
     func updateWith(task: Task) {
         
-        taskNameTextField.text = task.name
-        priorityTextField.text = task.priority
-        dueDateTextField.text = task.dueDate?.stringValue()
-        notesTextView.text = task.notes
+        if let task = self.task {
+            
+            self.dueDate = task.dueDate
+            
+            // Populate the views with the existing task's data
+            taskNameTextField.text = task.name
+            priorityTextField.text = task.priority
+            dueDateTextField.text = task.dueDate.stringValue()
+            dueDateDatePicker.setDate(task.dueDate, animated: true)
+            notesTextView.text = task.notes
+            
+        } else {
+            
+            self.dueDate = NSDate()
+            
+            // Populate the views with some defaults
+            priorityTextField.text = priorityTextDefault
+            dueDateTextField.text = dueDate.stringValue()
+            
+        }
         
     }
-
-    // MARK: - Table view data source
-
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - Action(s)
     
     @IBAction func datePickerValueChanged(sender: UIDatePicker) {
         
-        self.dueDateValue = sender.date
+        self.dueDate = sender.date
         
-        let dateString = self.dueDateValue?.stringValue()
-        
-        dueDateTextField.text = dateString
+        dueDateTextField.text = self.dueDate.stringValue()
         
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         
-        guard let priority = priorityTextField.text else {
-            print("No value in priorityTextField")
-            return
-        }
-        
         guard let name = taskNameTextField.text
-//            , priority = priorityTextField.text
+            , priority = priorityTextField.text
             , notes = notesTextView.text
             where name.characters.count > 0
         else { return }
@@ -119,12 +89,12 @@ class TaskDetailTableViewController: UITableViewController {
         if let task = task {
             
             // Update existing Task
-            TaskController.sharedController.updateTask(task, name: name, priority: priority, notes: notes, dueDate: dueDateValue, isComplete: false)
+            TaskController.sharedController.updateTask(task, name: name, priority: priority, dueDate: self.dueDate, isComplete: false, notes: notes)
             
         } else {
             
             // Save a new Task
-            TaskController.sharedController.addTask(name, priority: priority, notes: notes, dueDate: dueDateValue)
+            TaskController.sharedController.addTask(name, priority: priority, dueDate: self.dueDate, notes: notes)
             
         }
         
@@ -144,13 +114,24 @@ class TaskDetailTableViewController: UITableViewController {
         taskNameTextField.resignFirstResponder()
         dueDateTextField.resignFirstResponder()
         notesTextView.resignFirstResponder()
-//        dueDateTextField.text = dueDateValue?.stringValue()
+//        dueDateTextField.text = dueDateValue.stringValue()
         
     }
     
     
     
     // MARK: - Methods
+    
+//    func calcuateMidnightOfDate(date: NSDate) -> NSDate {
+//        
+//        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+//        
+//        let newDate = cal.dateBySettingHour(23, minute: 59, second: 59, ofDate: date, options: NSCalendarOptions())!
+//        
+//        let midnightOnDate = NSDate(timeIntervalSinceReferenceDate: newDate.timeIntervalSince1970)
+//        
+//        return midnightOnDate
+//    }
     
     
     /*

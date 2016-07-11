@@ -40,7 +40,7 @@ class ButtonTableViewCell: UITableViewCell {
 
     @IBAction func isCompleteButtonTapped(sender: UIButton) {
         
-        imageView?.image = UIImage(named: "complete")
+//        imageView?.image = UIImage(named: "complete")
         
         if let delegate = delegate {
             
@@ -53,6 +53,6 @@ class ButtonTableViewCell: UITableViewCell {
 
 protocol ButtonTableViewCellDelegate {
     
-    func buttonCellButtonTapped(sender: ButtonTableViewCell)
+    func buttonCellButtonTapped(cell: ButtonTableViewCell)
     
 }

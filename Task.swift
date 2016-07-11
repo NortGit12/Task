@@ -12,7 +12,7 @@ import CoreData
 @objc(Task)
 class Task: NSManagedObject {
 
-    convenience init?(name: String, priority: String? = nil, notes: String? = nil, dueDate: NSDate? = nil, isComplete: Bool = false, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init?(name: String, priority: String? = nil, dueDate: NSDate, isComplete: Bool = false, notes: String? = nil, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         
         guard let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: context) else { return nil }
         
@@ -24,9 +24,9 @@ class Task: NSManagedObject {
             self.priority = priority
         }
         
-        self.notes = notes
         self.dueDate = dueDate
         self.isComplete = isComplete
+        self.notes = notes
         
     }
 

@@ -5,10 +5,10 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Task List Table View Controller-->
+        <!--Task List Core Data Table View Controller-->
         <scene sceneID="Cdz-0v-R4p">
             <objects>
-                <tableViewController id="Edb-uq-fZN" customClass="TaskListTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Edb-uq-fZN" customClass="TaskListCoreDataTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" id="H9f-6s-weq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,7 +62,7 @@
                                 <connections>
                                     <outlet property="isCompleteButton" destination="Hba-F7-qeD" id="pvH-Eu-eot"/>
                                     <outlet property="primaryLabel" destination="SxH-pR-E9X" id="l3b-Xm-NJP"/>
-                                    <segue destination="pdr-6h-ukK" kind="show" identifier="I" id="WwM-X2-eYi"/>
+                                    <segue destination="pdr-6h-ukK" kind="show" identifier="viewExistingTaskSegue" id="WwM-X2-eYi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -104,18 +104,15 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="31W-OZ-5TR">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="43" id="5Ev-Sh-qDx"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="31W-OZ-5TR" secondAttribute="bottom" id="Ad5-Ca-yGb"/>
-                                                <constraint firstItem="31W-OZ-5TR" firstAttribute="top" secondItem="8dd-Zw-Jbk" secondAttribute="top" id="Xfw-Xl-aA5"/>
-                                                <constraint firstAttribute="trailing" secondItem="31W-OZ-5TR" secondAttribute="trailing" id="bpi-8E-0r9"/>
-                                                <constraint firstItem="31W-OZ-5TR" firstAttribute="leading" secondItem="8dd-Zw-Jbk" secondAttribute="leading" id="xtm-ae-dJ2"/>
+                                                <constraint firstItem="31W-OZ-5TR" firstAttribute="top" secondItem="8dd-Zw-Jbk" secondAttribute="top" id="Nbm-gn-KRM"/>
+                                                <constraint firstAttribute="trailing" secondItem="31W-OZ-5TR" secondAttribute="trailing" id="iey-Wg-uyl"/>
+                                                <constraint firstAttribute="bottom" secondItem="31W-OZ-5TR" secondAttribute="bottom" id="sKW-Mi-1pn"/>
+                                                <constraint firstItem="31W-OZ-5TR" firstAttribute="leading" secondItem="8dd-Zw-Jbk" secondAttribute="leading" id="tMg-tC-czX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -132,18 +129,15 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Priority..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iAN-it-WMO">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="43" id="81C-TS-0fZ"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="iAN-it-WMO" secondAttribute="trailing" id="PuE-Mv-tYs"/>
-                                                <constraint firstAttribute="bottom" secondItem="iAN-it-WMO" secondAttribute="bottom" id="UtM-JB-gke"/>
-                                                <constraint firstItem="iAN-it-WMO" firstAttribute="leading" secondItem="TGL-xM-wWa" secondAttribute="leading" id="fSF-yN-d6j"/>
-                                                <constraint firstItem="iAN-it-WMO" firstAttribute="top" secondItem="TGL-xM-wWa" secondAttribute="top" id="od4-uL-vfd"/>
+                                                <constraint firstItem="iAN-it-WMO" firstAttribute="top" secondItem="TGL-xM-wWa" secondAttribute="top" id="6QS-4o-AlR"/>
+                                                <constraint firstAttribute="bottom" secondItem="iAN-it-WMO" secondAttribute="bottom" id="CIm-q8-55v"/>
+                                                <constraint firstItem="iAN-it-WMO" firstAttribute="leading" secondItem="TGL-xM-wWa" secondAttribute="leading" id="G1q-XZ-9yP"/>
+                                                <constraint firstAttribute="trailing" secondItem="iAN-it-WMO" secondAttribute="trailing" id="mbU-Pm-LLY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -160,18 +154,15 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Due Date..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ex7-Cj-DLV">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="43" id="YX7-b0-nxO"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Ex7-Cj-DLV" firstAttribute="top" secondItem="IoX-2P-kfU" secondAttribute="top" id="6Fr-Qg-uXJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ex7-Cj-DLV" secondAttribute="bottom" id="Ss7-8W-rO1"/>
-                                                <constraint firstItem="Ex7-Cj-DLV" firstAttribute="leading" secondItem="IoX-2P-kfU" secondAttribute="leading" id="TlM-SO-HSL"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ex7-Cj-DLV" secondAttribute="trailing" id="naE-GT-B0l"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ex7-Cj-DLV" secondAttribute="trailing" id="1uZ-or-g6p"/>
+                                                <constraint firstItem="Ex7-Cj-DLV" firstAttribute="leading" secondItem="IoX-2P-kfU" secondAttribute="leading" id="4Pk-8v-Dgh"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ex7-Cj-DLV" secondAttribute="bottom" id="Any-ol-cgD"/>
+                                                <constraint firstItem="Ex7-Cj-DLV" firstAttribute="top" secondItem="IoX-2P-kfU" secondAttribute="top" id="oxF-qO-44C"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -189,18 +180,15 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cRO-iT-NLY">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="43" id="syy-2Q-S1P"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="cRO-iT-NLY" secondAttribute="trailing" id="0VN-cz-ik4"/>
-                                                <constraint firstItem="cRO-iT-NLY" firstAttribute="leading" secondItem="Axc-45-3oF" secondAttribute="leading" id="JXZ-hL-dEd"/>
-                                                <constraint firstAttribute="bottom" secondItem="cRO-iT-NLY" secondAttribute="bottom" id="jZv-pZ-5gU"/>
-                                                <constraint firstItem="cRO-iT-NLY" firstAttribute="top" secondItem="Axc-45-3oF" secondAttribute="top" id="yLB-iR-vhB"/>
+                                                <constraint firstItem="cRO-iT-NLY" firstAttribute="leading" secondItem="Axc-45-3oF" secondAttribute="leading" id="BTd-nL-gDY"/>
+                                                <constraint firstItem="cRO-iT-NLY" firstAttribute="top" secondItem="Axc-45-3oF" secondAttribute="top" id="PCa-9B-wsK"/>
+                                                <constraint firstAttribute="bottom" secondItem="cRO-iT-NLY" secondAttribute="bottom" id="izV-yD-1Fh"/>
+                                                <constraint firstAttribute="trailing" secondItem="cRO-iT-NLY" secondAttribute="trailing" id="unn-I0-YJ8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
