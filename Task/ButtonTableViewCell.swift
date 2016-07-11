@@ -27,6 +27,15 @@ class ButtonTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    // MARK: - Methods
+    
+    func updateWith(task: Task) {
+        
+        primaryLabel.text = task.name
+        isCompleteButton.setTitle(task.isComplete.stringValue, forState: .Normal)
+        
+    }
+    
     // MARK: - Actions
 
     @IBAction func isCompleteButtonTapped(sender: UIButton) {

@@ -62,7 +62,7 @@
                                 <connections>
                                     <outlet property="isCompleteButton" destination="Hba-F7-qeD" id="pvH-Eu-eot"/>
                                     <outlet property="primaryLabel" destination="SxH-pR-E9X" id="l3b-Xm-NJP"/>
-                                    <segue destination="pdr-6h-ukK" kind="show" identifier="viewExistingTaskSegue" id="WwM-X2-eYi"/>
+                                    <segue destination="pdr-6h-ukK" kind="show" identifier="I" id="WwM-X2-eYi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -228,6 +228,7 @@
                         <outlet property="dueDateDatePicker" destination="IML-tA-zGv" id="RlF-Ew-Ggu"/>
                         <outlet property="dueDateTextField" destination="Ex7-Cj-DLV" id="aCn-OH-nbB"/>
                         <outlet property="notesTextView" destination="cRO-iT-NLY" id="dgZ-Yu-sf9"/>
+                        <outlet property="priorityTextField" destination="iAN-it-WMO" id="DTC-3k-A8Y"/>
                         <outlet property="taskNameTextField" destination="31W-OZ-5TR" id="Gvc-y1-Ex7"/>
                     </connections>
                 </tableViewController>

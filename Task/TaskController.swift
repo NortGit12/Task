@@ -18,6 +18,8 @@ class TaskController {
     let moc = Stack.sharedStack.managedObjectContext
     
     let fetchedResultsController: NSFetchedResultsController
+    
+    weak var delegate: NSFetchedResultsControllerDelegate?
 
     var tasks: [Task] = []
     
@@ -61,12 +63,6 @@ class TaskController {
         } catch let error as NSError {
             print("Error fetching tasks: \(error)")
         }
-        
-//        do {
-//            return try moc.executeFetchRequest(request) as! [Task]
-//        } catch {
-//            return []
-//        }
         
     }
     
